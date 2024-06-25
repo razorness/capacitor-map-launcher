@@ -27,12 +27,12 @@ import MapKit
 		MapModel(mapName: "Mapy CZ", mapType: MapType.mapyCz, urlPrefix: "szn-mapy://")
 	]
 
-	@objc public func getMapByRawMapType(type: String) -> Map? {
+	@objc public func getMapByRawMapType(type: String) -> MapModel? {
         return maps.first(where: { $0.mapType.type() == type })
     }
 
-    @objc public func getMapItem(latitude: String, longitude: String, name: String?) -> MKMapItem {
-        let coordinate = CLLocationCoordinate2DMake(Double(latitude)!, Double(longitude)!)
+    @objc public func getMapItem(latitude: Double, longitude: Double, name: String?) -> MKMapItem {
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
         let destinationPlacemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
 
         let mapItem = MKMapItem(placemark: destinationPlacemark)
@@ -40,29 +40,29 @@ import MapKit
         return mapItem
     }
 
-    @objc public func showMarker(mapType: MapType, url: String, title: String, latitude: String, longitude: String) {
+    @objc public func showMarker(mapType: MapType, url: String, title: String, latitude: Double, longitude: Double) {
         switch mapType {
         case MapType.apple:
-            let coordinate = CLLocationCoordinate2DMake(Double(latitude)!, Double(longitude)!)
+            let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
             let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
             let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: nil)
             let mapItem = MKMapItem(placemark: placemark)
             let options = [
                 MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
                 MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-            mapItem.name = title
+            mapItem.name = title as String
             mapItem.openInMaps(launchOptions: options)
-        default:
-            UIApplication.shared.open(URL(string:url)!, options: [:], completionHandler: nil)
-
+        default:		
+            let uri = URL(string:url)
+            UIApplication.shared.open(uri!, options: [:], completionHandler: nil)
         }
     }
 
-    @objc public func getMapsAvailable() -> [MapModel] {
+    @objc public func getMapsAvailable() -> [[String:String]] {
     	return maps.filter({ isMapAvailable(map: $0) }).map({ $0.toMap() })
     }
 
-    @objc public func isMapAvailable(map: Map?) -> Bool {
+    @objc public func isMapAvailable(map: MapModel?) -> Bool {
         // maptype is not available on iOS
         guard let map = map else {
             return false

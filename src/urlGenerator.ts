@@ -2,6 +2,13 @@ import { Capacitor } from '@capacitor/core';
 
 import { MapType } from './definitions';
 
+function encode(str: string | undefined, alt?: string | undefined): string | undefined {
+	if (str) {
+		return encodeURIComponent(str);
+	}
+	return alt ?? undefined;
+}
+
 export function generateMarkerUrl(mapType: MapType, coords: number[], title?: string, description?: string, zoom = 16): string {
 
 	switch (mapType) {
@@ -9,7 +16,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				Capacitor.getPlatform() === 'ios' ? 'comgooglemaps://' : 'geo:0,0',
 				{
-					'q'   : `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${title})` : ''}`,
+					'q'   : `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${encode(title)})` : ''}`,
 					'zoom': zoom.toString(),
 				},
 			);
@@ -18,7 +25,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				'http://maps.google.com/maps',
 				{
-					'q'   : `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${title})` : ''}`,
+					'q'   : `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${encode(title)})` : ''}`,
 					'zoom': zoom.toString(),
 				},
 			);
@@ -28,7 +35,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 				`${Capacitor.getPlatform() === 'ios' ? 'ios' : 'android'}amap://viewMap`,
 				{
 					'sourceApplication': 'map_launcher',
-					'poiname'          : title || '',
+					'poiname'          : encode(title, ''),
 					'lat'              : `${coords[ 1 ]}`,
 					'lon'              : `${coords[ 0 ]}`,
 					'zoom'             : zoom.toString(),
@@ -41,8 +48,8 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 				'baidumap://map/marker',
 				{
 					'location'  : `${coords[ 1 ]},${coords[ 0 ]}`,
-					'title'     : title || 'Title',
-					'content'   : description || 'Description', // baidu fails if no description provided
+					'title'     : encode(title, 'Title'),
+					'content'   : encode(description, 'Description'), // baidu fails if no description provided
 					'traffic'   : 'on',
 					'src'       : 'com.map_launcher',
 					'coord_type': 'gcj02',
@@ -75,7 +82,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 					'lon'       : `${coords[ 0 ]}`,
 					'zoom'      : zoom.toString(),
 					'no-balloon': '0',
-					'desc'      : title || '',
+					'desc'      : encode(title, ''),
 				},
 			);
 
@@ -83,7 +90,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				'yandexmaps://maps.yandex.ru/',
 				{
-					'pt': '${coords[ 0 ]},${coords[ 1 ]}',
+					'pt': `${coords[ 0 ]},${coords[ 1 ]}`,
 					'z' : zoom.toString(),
 					'l' : 'map',
 				},
@@ -94,7 +101,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 				'citymapper://directions',
 				{
 					'endcoord': `${coords[ 1 ]},${coords[ 0 ]}`,
-					'endname' : title || '',
+					'endname' : encode(title, ''),
 				},
 			);
 
@@ -104,7 +111,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 				{
 					'v' : '1',
 					'll': `${coords[ 1 ]},${coords[ 0 ]}`,
-					'n' : title,
+					'n' : encode(title),
 				},
 			);
 
@@ -117,7 +124,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 						'lat'  : `${coords[ 1 ]}`,
 						'lon'  : `${coords[ 0 ]}`,
 						'z'    : zoom.toString(),
-						'title': title,
+						'title': encode(title),
 					},
 				);
 			}
@@ -143,13 +150,13 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				'qqmap://map/marker',
 				{
-					'marker': `coord:${coords[ 1 ]},${coords[ 0 ]}${title ? `;title:${title}` : ''}`,
+					'marker': `coord:${coords[ 1 ]},${coords[ 0 ]}${title ? `;title:${encode(title)}` : ''}`,
 				},
 			);
 
 		case MapType.HERE:
 			return buildUrl(
-				`https://share.here.com/l/${coords[ 1 ]},${coords[ 0 ]},${title}`,
+				`https://share.here.com/l/${coords[ 1 ]},${coords[ 0 ]},${encode(title)}`,
 				{
 					'z': zoom.toString(),
 				},
@@ -177,7 +184,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				`geo:${coords[ 1 ]},${coords[ 0 ]}`,
 				{
-					'q': `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${title})` : ''}`,
+					'q': `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${encode(title)})` : ''}`,
 				},
 			);
 
@@ -190,8 +197,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 					'type'  : 'LOCATION',
 					'action': 'VIEW',
 					'marker': `${coords[ 1 ]},${coords[ 0 ]}`,
-					'name'  : title ?? '',
-
+					'name'  : encode(title, ''),
 				},
 			);
 
@@ -199,7 +205,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				`geo:${coords[ 1 ]},${coords[ 0 ]}`,
 				{
-					'q': `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${title})` : ''}`,
+					'q': `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${encode(title)})` : ''}`,
 				},
 			);
 
@@ -247,7 +253,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 					'lat' : `${coords[ 1 ]}`,
 					'lng' : `${coords[ 0 ]}`,
 					'zoom': zoom.toString(),
-					'name': title,
+					'name': encode(title),
 				},
 			);
 
@@ -263,7 +269,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				'tmap://viewmap',
 				{
-					'name': title || '',
+					'name': encode(title, ''),
 					'x'   : `${coords[ 0 ]}`,
 					'y'   : `${coords[ 1 ]}`,
 				},

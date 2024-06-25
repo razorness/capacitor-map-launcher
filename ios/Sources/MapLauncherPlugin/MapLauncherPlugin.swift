@@ -23,33 +23,26 @@ public class MapLauncherPlugin: CAPPlugin, CAPBridgedPlugin {
     }
 
     @objc func showMarker(_ call: CAPPluginCall) {
-		let mapType = call.getString("mapType")
-		let url = call.getString("url")
-		let title = call.getString("title")
-		let latitude = call.getString("lat")
-		let longitude = call.getString("lon")
+		let mapType = call.getString("mapType") ?? ""
+		let url = call.getString("url") ?? ""
+        let title = call.getString("title") ?? ""
+        let latitude = call.getDouble("lat") ?? 0
+        let longitude = call.getDouble("lon") ?? 0
 
-		let map = getMapByRawMapType(type: mapType)
-		if (!isMapAvailable(map: map)) {
-			result(FlutterError(code: "MAP_NOT_AVAILABLE", message: "Map is not installed on a device", details: nil))
+        let map = implementation.getMapByRawMapType(type: mapType)
+        if (!implementation.isMapAvailable(map: map)) {
+            call.reject("Map is not installed on a device", "MAP_NOT_AVAILABLE")
 			return;
 		}
 
-		showMarker(mapType: MapType(rawValue: mapType)!, url: url, title: title, latitude: latitude, longitude: longitude)
+        implementation.showMarker(mapType: MapType(rawValue: mapType)!, url: url, title: title, latitude: latitude, longitude: longitude)
     }
 
     @objc func isMapAvailable(_ call: CAPPluginCall) {
-		let mapType = call.getString("mapType")
+		let mapType = call.getString("mapType") ?? ""
 		let map = implementation.getMapByRawMapType(type: mapType)
         call.resolve([
             "value": implementation.isMapAvailable(map: map)
-        ])
-    }
-
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
         ])
     }
 }
