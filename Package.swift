@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "MapLauncher",
+    name: "CapacitorMapLauncher",
     platforms: [.iOS(.v13)],
     products: [
         .library(
-            name: "MapLauncher",
+            name: "CapacitorMapLauncher",
             targets: ["MapLauncherPlugin"])
     ],
     dependencies: [
@@ -14,14 +14,14 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "MapLauncherPlugin",
+            name: "CapacitorMapLauncherPlugin",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
             path: "ios/Sources/MapLauncherPlugin"),
         .testTarget(
-            name: "MapLauncherPluginTests",
+            name: "CapacitorMapLauncherPluginTests",
             dependencies: ["MapLauncherPlugin"],
             path: "ios/Tests/MapLauncherPluginTests")
     ]
