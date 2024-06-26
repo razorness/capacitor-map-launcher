@@ -1184,7 +1184,7 @@ __metadata:
     "@capacitor/ios": "npm:^6.1.0"
     "@vitejs/plugin-vue": "npm:^5.0.5"
     "@vueuse/core": "npm:^10.11.0"
-    map-launcher: "portal:../"
+    capacitor-map-launcher: "portal:../"
     typescript: "npm:^5.2.2"
     vite: "npm:^5.3.1"
     vue: "npm:^3.4.29"
@@ -1521,9 +1521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"map-launcher@portal:../::locator=example%40workspace%3A.":
+"capacitor-map-launcher@portal:../::locator=example%40workspace%3A.":
   version: 0.0.0-use.local
-  resolution: "map-launcher@portal:../::locator=example%40workspace%3A."
+  resolution: "capacitor-map-launcher@portal:../::locator=example%40workspace%3A."
   peerDependencies:
     "@capacitor/core": ^6.0.0
   languageName: node

@@ -1,11 +1,11 @@
-# map-launcher
+# capacitor-map-launcher
 
 Opens coordinates in native map apps
 
 ## Install
 
 ```bash
-npm install map-launcher
+npm install capacitor-map-launcher
 npx cap sync
 ```
 

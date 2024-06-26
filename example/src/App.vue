@@ -24,7 +24,7 @@
 <script lang="ts">
 	import { defineComponent, ref } from 'vue';
 	import HelloWorld from './components/HelloWorld.vue';
-	import { MapLauncher, MapModel, showMarker } from 'map-launcher';
+	import { MapLauncher, MapModel, showMarker } from 'capacitor-map-launcher';
 
 	export default defineComponent({
 		components: { HelloWorld },
