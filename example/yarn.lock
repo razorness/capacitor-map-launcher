@@ -939,6 +939,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"capacitor-map-launcher@portal:../::locator=example%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "capacitor-map-launcher@portal:../::locator=example%40workspace%3A."
+  peerDependencies:
+    "@capacitor/core": ^6.0.0
+  languageName: node
+  linkType: soft
+
 "chownr@npm:^2.0.0":
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
@@ -1520,14 +1528,6 @@ __metadata:
   checksum: 10c0/df5f4dbb6d98153b751bccf4dc4cc500de85a96a9331db9805596c46aa9f99d9555983954e6c1266d9f981ae37a9e4647f42b9a4bb5466f867f4012e582c9e7e
   languageName: node
   linkType: hard
-
-"capacitor-map-launcher@portal:../::locator=example%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "capacitor-map-launcher@portal:../::locator=example%40workspace%3A."
-  peerDependencies:
-    "@capacitor/core": ^6.0.0
-  languageName: node
-  linkType: soft
 
 "minimatch@npm:^8.0.2":
   version: 8.0.4
