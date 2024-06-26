@@ -1,0 +1,267 @@
+{
+  "api": {
+    "name": "MapLauncherPlugin",
+    "slug": "maplauncherplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "getInstalledMaps",
+        "signature": "() => Promise<{ value: MapModel[]; }>",
+        "parameters": [],
+        "returns": "Promise<{ value: MapModel[]; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "MapModel"
+        ],
+        "slug": "getinstalledmaps"
+      },
+      {
+        "name": "isMapAvailable",
+        "signature": "(options: { mapType: MapType; }) => Promise<{ value: MapModel; }>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ mapType: MapType; }"
+          }
+        ],
+        "returns": "Promise<{ value: MapModel; }>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "MapModel",
+          "MapType"
+        ],
+        "slug": "ismapavailable"
+      },
+      {
+        "name": "showMarker",
+        "signature": "(options: { mapType: MapType; url: string; lat: number; lon: number; title?: string; description?: string; }) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "{ mapType: MapType; url: string; lat: number; lon: number; title?: string | undefined; description?: string | undefined; }"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "MapType"
+        ],
+        "slug": "showmarker"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "MapModel",
+      "slug": "mapmodel",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "mapType",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "MapType"
+          ],
+          "type": "MapType"
+        },
+        {
+          "name": "mapName",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "packageName",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        },
+        {
+          "name": "urlPrefix",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "MapType",
+      "slug": "maptype",
+      "members": [
+        {
+          "name": "APPLE",
+          "value": "'apple'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "GOOGLE",
+          "value": "'google'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "GOOGLE_GO",
+          "value": "'googleGo'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "AMAP",
+          "value": "'amap'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "BAIDU",
+          "value": "'baidu'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "WAZE",
+          "value": "'waze'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "YANDEX_MAPS",
+          "value": "'yandexMaps'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "YANDEX_NAVI",
+          "value": "'yandexNavi'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "CITYMAPPER",
+          "value": "'citymapper'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "MAPSWITHME",
+          "value": "'mapswithme'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "OSMAND",
+          "value": "'osmand'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "OSMANDPLUS",
+          "value": "'osmandplus'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "DOUBLE_GIS",
+          "value": "'doubleGis'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "TENCENT",
+          "value": "'tencent'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "HERE",
+          "value": "'here'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "PETAL",
+          "value": "'petal'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "TOMTOMGO",
+          "value": "'tomtomgo'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "TOMTOMGOFLEET",
+          "value": "'tomtomgofleet'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "COPILOT",
+          "value": "'copilot'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "SYGIC_TRUCK",
+          "value": "'sygicTruck'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "FLITSMEISTER",
+          "value": "'flitsmeister'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "TRUCKMEISTER",
+          "value": "'truckmeister'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "NAVER",
+          "value": "'naver'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "KAKAO",
+          "value": "'kakao'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "TMAP",
+          "value": "'tmap'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "MAPY_CZ",
+          "value": "'mapyCz'",
+          "tags": [],
+          "docs": ""
+        }
+      ]
+    }
+  ],
+  "typeAliases": [],
+  "pluginConfigs": []
+}
