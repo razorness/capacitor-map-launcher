@@ -13,7 +13,7 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "MapLauncher.podspec"
+    "CapacitorMapLauncher.podspec"
   ],
   "author": "Volker Nauruhn <nauruhn@cynatix.com>",
   "license": "MIT",
