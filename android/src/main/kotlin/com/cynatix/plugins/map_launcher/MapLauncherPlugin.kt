@@ -18,7 +18,7 @@ private class MapModel(val mapType: MapType, val mapName: String, val packageNam
     }
 }
 
-@CapacitorPlugin(name = "MapLauncher")
+@CapacitorPlugin(name = "CapacitorMapLauncher")
 class MapLauncherPlugin : Plugin() {
 
     private val maps = listOf(

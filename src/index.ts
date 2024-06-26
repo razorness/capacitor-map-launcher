@@ -3,7 +3,7 @@ import { registerPlugin } from '@capacitor/core';
 import type { MapLauncherPlugin, MapType } from './definitions';
 import { generateMarkerUrl } from './urlGenerator';
 
-const MapLauncher = registerPlugin<MapLauncherPlugin>('MapLauncher');
+const MapLauncher = registerPlugin<MapLauncherPlugin>('CapacitorMapLauncher');
 
 export * from './definitions';
 export { MapLauncher };

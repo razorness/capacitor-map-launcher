@@ -8,7 +8,7 @@ import Capacitor
 @objc(MapLauncherPlugin)
 public class MapLauncherPlugin: CAPPlugin, CAPBridgedPlugin {
     public let identifier = "MapLauncherPlugin"
-    public let jsName = "MapLauncher"
+    public let jsName = "CapacitorMapLauncher"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "getInstalledMaps", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "showMarker", returnType: CAPPluginReturnPromise),

@@ -254,7 +254,7 @@ var capacitorMapLauncher = (function (exports, core) {
         return url + '?' + qry.join('&');
     }
 
-    const MapLauncher = core.registerPlugin('MapLauncher');
+    const MapLauncher = core.registerPlugin('CapacitorMapLauncher');
     function showMarker(mapType, coords, title, description, zoom = 16) {
         return MapLauncher.showMarker({
             mapType: mapType,

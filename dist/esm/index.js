@@ -1,6 +1,6 @@
 import { registerPlugin } from '@capacitor/core';
 import { generateMarkerUrl } from './urlGenerator';
-const MapLauncher = registerPlugin('MapLauncher');
+const MapLauncher = registerPlugin('CapacitorMapLauncher');
 export * from './definitions';
 export { MapLauncher };
 export function showMarker(mapType, coords, title, description, zoom = 16) {
