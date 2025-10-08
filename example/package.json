@@ -1,26 +1,32 @@
 {
-  "name": "example",
-  "private": true,
-  "version": "0.0.0",
+  "name": "capacitor-app",
+  "version": "1.0.0",
+  "description": "An Amazing Capacitor App",
   "type": "module",
+  "keywords": [
+    "capacitor",
+    "mobile"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "start": "vite",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@capacitor/android": "^6.1.0",
-    "@capacitor/cli": "^6.1.0",
-    "@capacitor/core": "^6.1.0",
-    "@capacitor/ios": "^6.1.0",
-    "@vueuse/core": "^10.11.0",
-    "capacitor-map-launcher": "portal:../",
-    "vue": "^3.4.29"
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/ios": "^7.4.3",
+    "capacitor-map-launcher": "portal:..",
+    "vue": "^3.5.22"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.5",
-    "typescript": "^5.2.2",
-    "vite": "^5.3.1",
-    "vue-tsc": "^2.0.21"
-  }
+    "@capacitor/cli": "^7.4.3",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9",
+    "vue-tsc": "^3.1.1"
+  },
+  "author": "",
+  "license": "ISC",
+  "packageManager": "yarn@4.10.3"
 }

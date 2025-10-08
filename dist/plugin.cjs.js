@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var core = require('@capacitor/core');
 
 exports.MapType = void 0;
@@ -97,7 +95,7 @@ function generateMarkerUrl(mapType, coords, title, description, zoom = 16) {
             return buildUrl('baidumap://map/marker', {
                 'location': `${coords[1]},${coords[0]}`,
                 'title': encode(title, 'Title'),
-                'content': encode(description, 'Description'),
+                'content': encode(description, 'Description'), // baidu fails if no description provided
                 'traffic': 'on',
                 'src': 'com.map_launcher',
                 'coord_type': 'gcj02',

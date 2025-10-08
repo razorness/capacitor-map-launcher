@@ -52,7 +52,7 @@ import MapKit
                 MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
             mapItem.name = title as String
             mapItem.openInMaps(launchOptions: options)
-        default:		
+        default:
             let uri = URL(string:url)
             UIApplication.shared.open(uri!, options: [:], completionHandler: nil)
         }

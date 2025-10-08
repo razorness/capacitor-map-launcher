@@ -94,7 +94,7 @@ var capacitorMapLauncher = (function (exports, core) {
                 return buildUrl('baidumap://map/marker', {
                     'location': `${coords[1]},${coords[0]}`,
                     'title': encode(title, 'Title'),
-                    'content': encode(description, 'Description'),
+                    'content': encode(description, 'Description'), // baidu fails if no description provided
                     'traffic': 'on',
                     'src': 'com.map_launcher',
                     'coord_type': 'gcj02',
@@ -268,8 +268,6 @@ var capacitorMapLauncher = (function (exports, core) {
 
     exports.MapLauncher = MapLauncher;
     exports.showMarker = showMarker;
-
-    Object.defineProperty(exports, '__esModule', { value: true });
 
     return exports;
 

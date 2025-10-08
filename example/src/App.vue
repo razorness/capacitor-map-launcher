@@ -34,6 +34,7 @@
 
 			(async function () {
 				items.value = await MapLauncher.getInstalledMaps();
+        console.log('installed apps:');
 				console.log(items.value);
 			})();
 

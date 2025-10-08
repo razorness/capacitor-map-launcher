@@ -96,5 +96,12 @@ export interface MapLauncherPlugin {
 
 	isMapAvailable(options: { mapType: MapType }): Promise<{ value: MapModel }>;
 
-	showMarker(options: { mapType: MapType, url: string, lat: number, lon: number, title?: string, description?: string }): Promise<void>;
+  showMarker(options: {
+    mapType: MapType;
+    url: string;
+    lat: number;
+    lon: number;
+    title?: string;
+    description?: string;
+  }): Promise<void>;
 }

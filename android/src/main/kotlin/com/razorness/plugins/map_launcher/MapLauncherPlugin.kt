@@ -1,22 +1,13 @@
 package com.razorness.plugins.map_launcher
 
 import android.content.Intent
-import android.net.Uri
 import com.getcapacitor.JSArray
 import com.getcapacitor.JSObject
-import com.getcapacitor.JSValue
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
 import com.getcapacitor.PluginMethod
 import com.getcapacitor.annotation.CapacitorPlugin
-
-private enum class MapType { google, googleGo, amap, baidu, waze, yandexNavi, yandexMaps, citymapper, osmand, osmandplus, doubleGis, tencent, here, petal, tomtomgo, copilot, sygicTruck, tomtomgofleet, flitsmeister, truckmeister, naver, kakao, tmap, mapyCz }
-
-private class MapModel(val mapType: MapType, val mapName: String, val packageName: String, val urlPrefix: String) {
-    fun toMap(): Map<String, String> {
-        return mapOf("mapType" to mapType.name, "mapName" to mapName, "packageName" to packageName, "urlPrefix" to urlPrefix)
-    }
-}
+import androidx.core.net.toUri
 
 @CapacitorPlugin(name = "CapacitorMapLauncher")
 class MapLauncherPlugin : Plugin() {
@@ -48,27 +39,27 @@ class MapLauncherPlugin : Plugin() {
         MapModel(MapType.mapyCz, "Mapy CZ", "cz.seznam.mapy", "https://")
     )
 
-    private fun _getInstalledMaps(): List<MapModel> {
+    private fun getInstalledMaps(): List<MapModel> {
         return maps.filter { map ->
             context.packageManager?.getLaunchIntentForPackage(map.packageName) != null
         }
     }
 
-    private fun _isMapAvailable(type: String): Boolean {
-        return _getInstalledMaps().any { map -> map.mapType.name == type }
+    private fun isMapAvailable(type: String): Boolean {
+        return getInstalledMaps().any { map -> map.mapType.name == type }
     }
 
     @PluginMethod
     fun getInstalledMaps(call: PluginCall) {
         val ret = JSObject()
-        ret.put("value", JSArray(_getInstalledMaps().map { item -> JSObject.wrap(item.toMap()) }))
+        ret.put("value", JSArray(getInstalledMaps().map { item -> JSObject.wrap(item.toMap()) }))
         call.resolve(ret)
     }
 
     @PluginMethod
     fun isMapAvailable(call: PluginCall) {
         val ret = JSObject()
-        ret.put("value", _isMapAvailable(call.getString("mapType") as String))
+        ret.put("value", isMapAvailable(call.getString("mapType") as String))
         call.resolve(ret)
     }
 
@@ -77,13 +68,13 @@ class MapLauncherPlugin : Plugin() {
         val mapType = MapType.valueOf(call.getString("mapType") as String)
         val url = call.getString("url") as String
 
-        if (!_isMapAvailable(call.getString("mapType") as String)) {
+        if (!isMapAvailable(call.getString("mapType") as String)) {
             call.errorCallback("Map is not installed on a device")
             return
         }
 
         context.let {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             val foundMap = maps.find { map -> map.mapType == mapType }
             if (foundMap != null) {
