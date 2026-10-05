@@ -16,7 +16,7 @@
     "@capacitor/android": "^7.4.3",
     "@capacitor/core": "^7.4.3",
     "@capacitor/ios": "^7.4.3",
-    "capacitor-map-launcher": "portal:..",
+    "capacitor-map-launcher": "workspace:*",
     "vue": "^3.5.22"
   },
   "devDependencies": {
@@ -28,5 +28,5 @@
   },
   "author": "",
   "license": "ISC",
-  "packageManager": "yarn@4.10.3"
+  "private": true
 }

@@ -7,10 +7,10 @@ This guide provides instructions for contributing to this Capacitor plugin.
 ### Local Setup
 
 1. Fork and clone the repo.
-1. Install the dependencies.
+1. Install the dependencies with [pnpm](https://pnpm.io) (version pinned via `packageManager` in `package.json`, e.g. `corepack enable`). This also installs the example app in `example/`, which is part of the pnpm workspace.
 
     ```shell
-    npm install
+    pnpm install
     ```
 
 1. Install SwiftLint if you're on macOS.
@@ -21,7 +21,7 @@ This guide provides instructions for contributing to this Capacitor plugin.
 
 ### Scripts
 
-#### `npm run build`
+#### `pnpm run build`
 
 Build the plugin web assets and generate plugin API documentation using [`@capacitor/docgen`](https://github.com/ionic-team/capacitor-docgen).
 
@@ -29,13 +29,13 @@ It will compile the TypeScript code from `src/` into ESM JavaScript in `dist/esm
 
 Then, Rollup will bundle the code into a single file at `dist/plugin.js`. This file is used in apps without bundlers by including it as a script in `index.html`.
 
-#### `npm run verify`
+#### `pnpm run verify`
 
 Build and validate the web and native projects.
 
 This is useful to run in CI to verify that the plugin builds for all platforms.
 
-#### `npm run lint` / `npm run fmt`
+#### `pnpm run lint` / `pnpm run fmt`
 
 Check formatting and code quality, autoformat/autofix if possible.
 
