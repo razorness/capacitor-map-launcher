@@ -1,4 +1,5 @@
-name: CI
+name: Lint, test & build
+run-name: Lint, test & build
 
 # Runs untrusted pull request code, so it must never get secrets or write permissions:
 # `pull_request` (not `pull_request_target`), read-only token, no secrets referenced.

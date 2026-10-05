@@ -1,4 +1,5 @@
-name: Release
+name: Publish to npm
+run-name: Publish ${{ github.ref_name }} to npm
 
 on:
   push:
@@ -14,13 +15,13 @@ concurrency:
 
 jobs:
   ci:
-    name: CI
+    name: Lint, test & build
     uses: ./.github/workflows/ci.yml # zizmor: ignore[self-repository] -- documented local reusable-workflow syntax
 
   # Installs dependencies and builds, so it gets no publish rights. No cache: release
   # artifacts must not depend on cache entries other workflows could have written.
   pack:
-    name: Pack
+    name: Build package tarball
     needs: ci
     runs-on: ubuntu-latest
     steps:
