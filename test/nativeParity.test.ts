@@ -48,3 +48,11 @@ describe('native parity', () => {
 		expect(matchAll(swiftMaps, /mapType: \.(\w+),/g)).toEqual(iosTypes);
 	});
 });
+
+describe('README', () => {
+	it('lists every iOS URL scheme for LSApplicationQueriesSchemes', () => {
+		const readme = read('README.md');
+		const plist = readme.slice(readme.indexOf('<key>LSApplicationQueriesSchemes</key>'), readme.indexOf('</array>'));
+		expect(matchAll(plist, /<string>([^<]+)<\/string>/g)).toEqual(matchAll(swiftMaps, /urlPrefix: "([^"]+):\/\/"/g));
+	});
+});

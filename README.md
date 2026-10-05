@@ -1,6 +1,8 @@
 # capacitor-map-launcher
 
-Opens coordinates in native map apps
+Opens coordinates in native map apps (Google Maps, Apple Maps, Waze, OsmAnd, HERE, Baidu, … — see [`MapType`](#maptype)).
+
+Requires Capacitor 8, iOS 15+ and Android API 24+. The package is ESM only.
 
 ## Install
 
@@ -8,6 +10,63 @@ Opens coordinates in native map apps
 npm install capacitor-map-launcher
 npx cap sync
 ```
+
+### iOS
+
+iOS only reports apps whose URL scheme is declared in your app's `ios/App/App/Info.plist`. Add the schemes of the maps you want to detect (iOS allows at most 50 entries):
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+	<string>comgooglemaps</string>
+	<string>iosamap</string>
+	<string>baidumap</string>
+	<string>waze</string>
+	<string>yandexnavi</string>
+	<string>yandexmaps</string>
+	<string>citymapper</string>
+	<string>mapswithme</string>
+	<string>osmandmaps</string>
+	<string>dgis</string>
+	<string>qqmap</string>
+	<string>here-location</string>
+	<string>tomtomgo</string>
+	<string>tomtomgofleet</string>
+	<string>com.sygic.aura</string>
+	<string>copilot</string>
+	<string>nmap</string>
+	<string>kakaomap</string>
+	<string>tmap</string>
+	<string>szn-mapy</string>
+</array>
+```
+
+Apple Maps is always available and needs no entry.
+
+### Android
+
+No setup required. The plugin declares the necessary `<queries>` for package visibility.
+
+## Usage
+
+```typescript
+import { MapLauncher, MapType, showMarker } from 'capacitor-map-launcher';
+
+const { value: maps } = await MapLauncher.getInstalledMaps();
+
+// Coordinates are [longitude, latitude]
+await showMarker(MapType.GOOGLE, [13.377348, 52.516323], 'Brandenburg Gate');
+```
+
+`showMarker(mapType, coords, title?, description?, zoom = 16)` builds the app-specific deep link and opens it. Not every app supports a title, description or zoom level.
+
+Failed calls reject with one of these codes:
+
+| Code                | Reason                                                     |
+| ------------------- | ---------------------------------------------------------- |
+| `MAP_NOT_AVAILABLE` | The app is not installed or not supported on this platform |
+| `INVALID_URL`       | The generated URL could not be parsed                      |
+| `OPEN_FAILED`       | The OS refused to open the app                             |
 
 ## API
 

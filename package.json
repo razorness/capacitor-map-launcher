@@ -12,6 +12,7 @@
     },
     "./package.json": "./package.json"
   },
+  "sideEffects": false,
   "files": [
     "android/src/main/",
     "android/build.gradle",
