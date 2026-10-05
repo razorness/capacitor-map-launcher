@@ -1,107 +1,124 @@
 export enum MapType {
-	/// Apple Maps
-	/// Only available on iOS
+	/** Apple Maps. Only available on iOS. */
 	APPLE         = 'apple',
 
-	/// Google Maps
+	/** Google Maps */
 	GOOGLE        = 'google',
 
-	/// Google Maps Go
-	/// Only available on Android
+	/** Google Maps Go. Only available on Android. */
 	GOOGLE_GO     = 'googleGo',
 
-	/// Amap (Gaode Maps)
+	/** Amap (Gaode Maps) */
 	AMAP          = 'amap',
 
-	/// Baidu Maps
+	/** Baidu Maps */
 	BAIDU         = 'baidu',
 
-	/// Waze
+	/** Waze */
 	WAZE          = 'waze',
 
-	/// Yandex Maps
+	/** Yandex Maps */
 	YANDEX_MAPS   = 'yandexMaps',
 
-	/// Yandex Navi
+	/** Yandex Navi */
 	YANDEX_NAVI   = 'yandexNavi',
 
-	/// Citymapper
+	/** Citymapper */
 	CITYMAPPER    = 'citymapper',
 
-	/// Maps.me
+	/** MAPS.ME */
 	MAPSWITHME    = 'mapswithme',
 
-	/// OsmAnd
+	/** OsmAnd */
 	OSMAND        = 'osmand',
 
-	/// OsmAnd+
-	/// Only available on Android
+	/** OsmAnd+. Only available on Android. */
 	OSMANDPLUS    = 'osmandplus',
 
-	/// DoubleGis
+	/** 2GIS */
 	DOUBLE_GIS    = 'doubleGis',
 
-	/// Tencent (QQ Maps)
+	/** Tencent (QQ Maps) */
 	TENCENT       = 'tencent',
 
-	/// HERE WeGo
+	/** HERE WeGo */
 	HERE          = 'here',
 
-	/// Petal Maps
-	/// Only available on Android
+	/** Petal Maps. Only available on Android. */
 	PETAL         = 'petal',
 
-	/// TomTom Go
+	/** TomTom Go */
 	TOMTOMGO      = 'tomtomgo',
 
-	/// TomTom Go Fleet
+	/** TomTom Go Fleet */
 	TOMTOMGOFLEET = 'tomtomgofleet',
 
-	/// CoPilot
+	/** CoPilot */
 	COPILOT       = 'copilot',
 
-	/// Sygic Truck
+	/** Sygic Truck */
 	SYGIC_TRUCK   = 'sygicTruck',
 
-	/// Flitsmeister
-	/// Only available on Android
+	/** Flitsmeister. Only available on Android. */
 	FLITSMEISTER  = 'flitsmeister',
 
-	/// Truckmeister
-	/// Only available on Android
+	/** Truckmeister. Only available on Android. */
 	TRUCKMEISTER  = 'truckmeister',
 
-	// Naver Map
+	/** Naver Map */
 	NAVER         = 'naver',
 
-	// KakaoMap
+	/** KakaoMap */
 	KAKAO         = 'kakao',
 
-	// TMAP
+	/** TMAP */
 	TMAP          = 'tmap',
 
-	/// MapyCZ
+	/** Mapy.cz */
 	MAPY_CZ       = 'mapyCz',
 }
 
+/**
+ * A position as `[longitude, latitude]` (GeoJSON order).
+ */
+export type Coordinates = [lon: number, lat: number];
+
 export interface MapModel {
 	mapType: MapType;
+	/** Human-readable name, e.g. "Google Maps". */
 	mapName: string;
-	packageName: string;
-	urlPrefix: string;
+	/** Android package name. Only set on Android. */
+	packageName?: string;
+	/** URL scheme used to detect the app, e.g. "waze://". */
+	urlPrefix?: string;
 }
 
 export interface MapLauncherPlugin {
+	/**
+	 * Lists the supported map apps that are installed on the device.
+	 *
+	 * On iOS, an app is only detected if its URL scheme is listed under
+	 * `LSApplicationQueriesSchemes` in the app's `Info.plist`.
+	 */
 	getInstalledMaps(): Promise<{ value: MapModel[] }>;
 
-	isMapAvailable(options: { mapType: MapType }): Promise<{ value: MapModel }>;
+	/**
+	 * Checks whether the given map app is installed.
+	 */
+	isMapAvailable(options: { mapType: MapType }): Promise<{ value: boolean }>;
 
-  showMarker(options: {
-    mapType: MapType;
-    url: string;
-    lat: number;
-    lon: number;
-    title?: string;
-    description?: string;
-  }): Promise<void>;
+	/**
+	 * Opens a marker in the given map app.
+	 *
+	 * Prefer the exported `showMarker()` helper, which builds the app-specific `url` for you.
+	 * Rejects with code `MAP_NOT_AVAILABLE` if the app is not installed.
+	 */
+	showMarker(options: {
+		mapType: MapType;
+		url: string;
+		lat: number;
+		lon: number;
+		title?: string;
+		description?: string;
+	}): Promise<void>;
 }

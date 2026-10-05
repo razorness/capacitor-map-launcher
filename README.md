@@ -30,6 +30,11 @@ npx cap sync
 getInstalledMaps() => Promise<{ value: MapModel[]; }>
 ```
 
+Lists the supported map apps that are installed on the device.
+
+On iOS, an app is only detected if its URL scheme is listed under
+`LSApplicationQueriesSchemes` in the app's `Info.plist`.
+
 **Returns:** <code>Promise&lt;{ value: MapModel[]; }&gt;</code>
 
 --------------------
@@ -38,14 +43,16 @@ getInstalledMaps() => Promise<{ value: MapModel[]; }>
 ### isMapAvailable(...)
 
 ```typescript
-isMapAvailable(options: { mapType: MapType; }) => Promise<{ value: MapModel; }>
+isMapAvailable(options: { mapType: MapType; }) => Promise<{ value: boolean; }>
 ```
+
+Checks whether the given map app is installed.
 
 | Param         | Type                                                      |
 | ------------- | --------------------------------------------------------- |
 | **`options`** | <code>{ mapType: <a href="#maptype">MapType</a>; }</code> |
 
-**Returns:** <code>Promise&lt;{ value: <a href="#mapmodel">MapModel</a>; }&gt;</code>
+**Returns:** <code>Promise&lt;{ value: boolean; }&gt;</code>
 
 --------------------
 
@@ -55,6 +62,11 @@ isMapAvailable(options: { mapType: MapType; }) => Promise<{ value: MapModel; }>
 ```typescript
 showMarker(options: { mapType: MapType; url: string; lat: number; lon: number; title?: string; description?: string; }) => Promise<void>
 ```
+
+Opens a marker in the given map app.
+
+Prefer the exported `showMarker()` helper, which builds the app-specific `url` for you.
+Rejects with code `MAP_NOT_AVAILABLE` if the app is not installed.
 
 | Param         | Type                                                                                                                                   |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
@@ -68,12 +80,12 @@ showMarker(options: { mapType: MapType; url: string; lat: number; lon: number; t
 
 #### MapModel
 
-| Prop              | Type                                        |
-| ----------------- | ------------------------------------------- |
-| **`mapType`**     | <code><a href="#maptype">MapType</a></code> |
-| **`mapName`**     | <code>string</code>                         |
-| **`packageName`** | <code>string</code>                         |
-| **`urlPrefix`**   | <code>string</code>                         |
+| Prop              | Type                                        | Description                                        |
+| ----------------- | ------------------------------------------- | -------------------------------------------------- |
+| **`mapType`**     | <code><a href="#maptype">MapType</a></code> |                                                    |
+| **`mapName`**     | <code>string</code>                         | Human-readable name, e.g. "Google Maps".           |
+| **`packageName`** | <code>string</code>                         | Android package name. Only set on Android.         |
+| **`urlPrefix`**   | <code>string</code>                         | URL scheme used to detect the app, e.g. "waze://". |
 
 
 ### Enums
@@ -81,33 +93,33 @@ showMarker(options: { mapType: MapType; url: string; lat: number; lon: number; t
 
 #### MapType
 
-| Members             | Value                        |
-| ------------------- | ---------------------------- |
-| **`APPLE`**         | <code>'apple'</code>         |
-| **`GOOGLE`**        | <code>'google'</code>        |
-| **`GOOGLE_GO`**     | <code>'googleGo'</code>      |
-| **`AMAP`**          | <code>'amap'</code>          |
-| **`BAIDU`**         | <code>'baidu'</code>         |
-| **`WAZE`**          | <code>'waze'</code>          |
-| **`YANDEX_MAPS`**   | <code>'yandexMaps'</code>    |
-| **`YANDEX_NAVI`**   | <code>'yandexNavi'</code>    |
-| **`CITYMAPPER`**    | <code>'citymapper'</code>    |
-| **`MAPSWITHME`**    | <code>'mapswithme'</code>    |
-| **`OSMAND`**        | <code>'osmand'</code>        |
-| **`OSMANDPLUS`**    | <code>'osmandplus'</code>    |
-| **`DOUBLE_GIS`**    | <code>'doubleGis'</code>     |
-| **`TENCENT`**       | <code>'tencent'</code>       |
-| **`HERE`**          | <code>'here'</code>          |
-| **`PETAL`**         | <code>'petal'</code>         |
-| **`TOMTOMGO`**      | <code>'tomtomgo'</code>      |
-| **`TOMTOMGOFLEET`** | <code>'tomtomgofleet'</code> |
-| **`COPILOT`**       | <code>'copilot'</code>       |
-| **`SYGIC_TRUCK`**   | <code>'sygicTruck'</code>    |
-| **`FLITSMEISTER`**  | <code>'flitsmeister'</code>  |
-| **`TRUCKMEISTER`**  | <code>'truckmeister'</code>  |
-| **`NAVER`**         | <code>'naver'</code>         |
-| **`KAKAO`**         | <code>'kakao'</code>         |
-| **`TMAP`**          | <code>'tmap'</code>          |
-| **`MAPY_CZ`**       | <code>'mapyCz'</code>        |
+| Members             | Value                        | Description                                |
+| ------------------- | ---------------------------- | ------------------------------------------ |
+| **`APPLE`**         | <code>'apple'</code>         | Apple Maps. Only available on iOS.         |
+| **`GOOGLE`**        | <code>'google'</code>        | Google Maps                                |
+| **`GOOGLE_GO`**     | <code>'googleGo'</code>      | Google Maps Go. Only available on Android. |
+| **`AMAP`**          | <code>'amap'</code>          | Amap (Gaode Maps)                          |
+| **`BAIDU`**         | <code>'baidu'</code>         | Baidu Maps                                 |
+| **`WAZE`**          | <code>'waze'</code>          | Waze                                       |
+| **`YANDEX_MAPS`**   | <code>'yandexMaps'</code>    | Yandex Maps                                |
+| **`YANDEX_NAVI`**   | <code>'yandexNavi'</code>    | Yandex Navi                                |
+| **`CITYMAPPER`**    | <code>'citymapper'</code>    | Citymapper                                 |
+| **`MAPSWITHME`**    | <code>'mapswithme'</code>    | MAPS.ME                                    |
+| **`OSMAND`**        | <code>'osmand'</code>        | OsmAnd                                     |
+| **`OSMANDPLUS`**    | <code>'osmandplus'</code>    | OsmAnd+. Only available on Android.        |
+| **`DOUBLE_GIS`**    | <code>'doubleGis'</code>     | 2GIS                                       |
+| **`TENCENT`**       | <code>'tencent'</code>       | Tencent (QQ Maps)                          |
+| **`HERE`**          | <code>'here'</code>          | HERE WeGo                                  |
+| **`PETAL`**         | <code>'petal'</code>         | Petal Maps. Only available on Android.     |
+| **`TOMTOMGO`**      | <code>'tomtomgo'</code>      | TomTom Go                                  |
+| **`TOMTOMGOFLEET`** | <code>'tomtomgofleet'</code> | TomTom Go Fleet                            |
+| **`COPILOT`**       | <code>'copilot'</code>       | CoPilot                                    |
+| **`SYGIC_TRUCK`**   | <code>'sygicTruck'</code>    | Sygic Truck                                |
+| **`FLITSMEISTER`**  | <code>'flitsmeister'</code>  | Flitsmeister. Only available on Android.   |
+| **`TRUCKMEISTER`**  | <code>'truckmeister'</code>  | Truckmeister. Only available on Android.   |
+| **`NAVER`**         | <code>'naver'</code>         | Naver Map                                  |
+| **`KAKAO`**         | <code>'kakao'</code>         | KakaoMap                                   |
+| **`TMAP`**          | <code>'tmap'</code>          | TMAP                                       |
+| **`MAPY_CZ`**       | <code>'mapyCz'</code>        | Mapy.cz                                    |
 
 </docgen-api>

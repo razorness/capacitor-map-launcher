@@ -11,7 +11,7 @@
         "parameters": [],
         "returns": "Promise<{ value: MapModel[]; }>",
         "tags": [],
-        "docs": "",
+        "docs": "Lists the supported map apps that are installed on the device.\n\nOn iOS, an app is only detected if its URL scheme is listed under\n`LSApplicationQueriesSchemes` in the app's `Info.plist`.",
         "complexTypes": [
           "MapModel"
         ],
@@ -19,7 +19,7 @@
       },
       {
         "name": "isMapAvailable",
-        "signature": "(options: { mapType: MapType; }) => Promise<{ value: MapModel; }>",
+        "signature": "(options: { mapType: MapType; }) => Promise<{ value: boolean; }>",
         "parameters": [
           {
             "name": "options",
@@ -27,11 +27,10 @@
             "type": "{ mapType: MapType; }"
           }
         ],
-        "returns": "Promise<{ value: MapModel; }>",
+        "returns": "Promise<{ value: boolean; }>",
         "tags": [],
-        "docs": "",
+        "docs": "Checks whether the given map app is installed.",
         "complexTypes": [
-          "MapModel",
           "MapType"
         ],
         "slug": "ismapavailable"
@@ -48,7 +47,7 @@
         ],
         "returns": "Promise<void>",
         "tags": [],
-        "docs": "",
+        "docs": "Opens a marker in the given map app.\n\nPrefer the exported `showMarker()` helper, which builds the app-specific `url` for you.\nRejects with code `MAP_NOT_AVAILABLE` if the app is not installed.",
         "complexTypes": [
           "MapType"
         ],
@@ -77,23 +76,23 @@
         {
           "name": "mapName",
           "tags": [],
-          "docs": "",
+          "docs": "Human-readable name, e.g. \"Google Maps\".",
           "complexTypes": [],
           "type": "string"
         },
         {
           "name": "packageName",
           "tags": [],
-          "docs": "",
+          "docs": "Android package name. Only set on Android.",
           "complexTypes": [],
-          "type": "string"
+          "type": "string | undefined"
         },
         {
           "name": "urlPrefix",
           "tags": [],
-          "docs": "",
+          "docs": "URL scheme used to detect the app, e.g. \"waze://\".",
           "complexTypes": [],
-          "type": "string"
+          "type": "string | undefined"
         }
       ]
     }
@@ -107,157 +106,157 @@
           "name": "APPLE",
           "value": "'apple'",
           "tags": [],
-          "docs": ""
+          "docs": "Apple Maps. Only available on iOS."
         },
         {
           "name": "GOOGLE",
           "value": "'google'",
           "tags": [],
-          "docs": ""
+          "docs": "Google Maps"
         },
         {
           "name": "GOOGLE_GO",
           "value": "'googleGo'",
           "tags": [],
-          "docs": ""
+          "docs": "Google Maps Go. Only available on Android."
         },
         {
           "name": "AMAP",
           "value": "'amap'",
           "tags": [],
-          "docs": ""
+          "docs": "Amap (Gaode Maps)"
         },
         {
           "name": "BAIDU",
           "value": "'baidu'",
           "tags": [],
-          "docs": ""
+          "docs": "Baidu Maps"
         },
         {
           "name": "WAZE",
           "value": "'waze'",
           "tags": [],
-          "docs": ""
+          "docs": "Waze"
         },
         {
           "name": "YANDEX_MAPS",
           "value": "'yandexMaps'",
           "tags": [],
-          "docs": ""
+          "docs": "Yandex Maps"
         },
         {
           "name": "YANDEX_NAVI",
           "value": "'yandexNavi'",
           "tags": [],
-          "docs": ""
+          "docs": "Yandex Navi"
         },
         {
           "name": "CITYMAPPER",
           "value": "'citymapper'",
           "tags": [],
-          "docs": ""
+          "docs": "Citymapper"
         },
         {
           "name": "MAPSWITHME",
           "value": "'mapswithme'",
           "tags": [],
-          "docs": ""
+          "docs": "MAPS.ME"
         },
         {
           "name": "OSMAND",
           "value": "'osmand'",
           "tags": [],
-          "docs": ""
+          "docs": "OsmAnd"
         },
         {
           "name": "OSMANDPLUS",
           "value": "'osmandplus'",
           "tags": [],
-          "docs": ""
+          "docs": "OsmAnd+. Only available on Android."
         },
         {
           "name": "DOUBLE_GIS",
           "value": "'doubleGis'",
           "tags": [],
-          "docs": ""
+          "docs": "2GIS"
         },
         {
           "name": "TENCENT",
           "value": "'tencent'",
           "tags": [],
-          "docs": ""
+          "docs": "Tencent (QQ Maps)"
         },
         {
           "name": "HERE",
           "value": "'here'",
           "tags": [],
-          "docs": ""
+          "docs": "HERE WeGo"
         },
         {
           "name": "PETAL",
           "value": "'petal'",
           "tags": [],
-          "docs": ""
+          "docs": "Petal Maps. Only available on Android."
         },
         {
           "name": "TOMTOMGO",
           "value": "'tomtomgo'",
           "tags": [],
-          "docs": ""
+          "docs": "TomTom Go"
         },
         {
           "name": "TOMTOMGOFLEET",
           "value": "'tomtomgofleet'",
           "tags": [],
-          "docs": ""
+          "docs": "TomTom Go Fleet"
         },
         {
           "name": "COPILOT",
           "value": "'copilot'",
           "tags": [],
-          "docs": ""
+          "docs": "CoPilot"
         },
         {
           "name": "SYGIC_TRUCK",
           "value": "'sygicTruck'",
           "tags": [],
-          "docs": ""
+          "docs": "Sygic Truck"
         },
         {
           "name": "FLITSMEISTER",
           "value": "'flitsmeister'",
           "tags": [],
-          "docs": ""
+          "docs": "Flitsmeister. Only available on Android."
         },
         {
           "name": "TRUCKMEISTER",
           "value": "'truckmeister'",
           "tags": [],
-          "docs": ""
+          "docs": "Truckmeister. Only available on Android."
         },
         {
           "name": "NAVER",
           "value": "'naver'",
           "tags": [],
-          "docs": ""
+          "docs": "Naver Map"
         },
         {
           "name": "KAKAO",
           "value": "'kakao'",
           "tags": [],
-          "docs": ""
+          "docs": "KakaoMap"
         },
         {
           "name": "TMAP",
           "value": "'tmap'",
           "tags": [],
-          "docs": ""
+          "docs": "TMAP"
         },
         {
           "name": "MAPY_CZ",
           "value": "'mapyCz'",
           "tags": [],
-          "docs": ""
+          "docs": "Mapy.cz"
         }
       ]
     }

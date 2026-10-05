@@ -1,5 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 
+import type { Coordinates } from './definitions';
 import { MapType } from './definitions';
 
 function encode(str: string | undefined, alt?: string | undefined): string | undefined {
@@ -9,7 +10,7 @@ function encode(str: string | undefined, alt?: string | undefined): string | und
 	return alt ?? undefined;
 }
 
-export function generateMarkerUrl(mapType: MapType, coords: number[], title?: string, description?: string, zoom = 16): string {
+export function generateMarkerUrl(mapType: MapType, coords: Coordinates, title?: string, description?: string, zoom = 16): string {
 
 	switch (mapType) {
 		case MapType.GOOGLE:
@@ -23,7 +24,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 
 		case MapType.GOOGLE_GO:
 			return buildUrl(
-				'http://maps.google.com/maps',
+				'https://maps.google.com/maps',
 				{
 					'q'   : `${coords[ 1 ]},${coords[ 0 ]}${title ? `(${encode(title)})` : ''}`,
 					'zoom': zoom.toString(),
@@ -58,10 +59,13 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			);
 
 		case MapType.APPLE:
+			// https://developer.apple.com/library/archive/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
 			return buildUrl(
-				'http://maps.apple.com/maps',
+				'https://maps.apple.com/',
 				{
-					'saddr': `${coords[ 1 ]},${coords[ 0 ]}`,
+					'll': `${coords[ 1 ]},${coords[ 0 ]}`,
+					'q' : encode(title, `${coords[ 1 ]},${coords[ 0 ]}`),
+					'z' : zoom.toString(),
 				},
 			);
 
@@ -129,7 +133,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 				);
 			}
 			return buildUrl(
-				'http://osmand.net/go',
+				'https://osmand.net/go',
 				{
 					'lat': `${coords[ 1 ]}`,
 					'lon': `${coords[ 0 ]}`,
@@ -156,7 +160,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 
 		case MapType.HERE:
 			return buildUrl(
-				`https://share.here.com/l/${coords[ 1 ]},${coords[ 0 ]},${encode(title)}`,
+				`https://share.here.com/l/${coords[ 1 ]},${coords[ 0 ]}${title ? `,${encode(title)}` : ''}`,
 				{
 					'z': zoom.toString(),
 				},
@@ -279,7 +283,7 @@ export function generateMarkerUrl(mapType: MapType, coords: number[], title?: st
 			return buildUrl(
 				'https://mapy.cz/zakladni',
 				{
-					'id'    : '${coords[ 0 ]},${coords[ 1 ]}',
+					'id'    : `${coords[ 0 ]},${coords[ 1 ]}`,
 					'z'     : zoom.toString(),
 					'source': 'coor',
 				},

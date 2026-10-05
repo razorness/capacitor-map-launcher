@@ -4,9 +4,9 @@ exports[`generateMarkerUrl on android > amap with title and description 1`] = `"
 
 exports[`generateMarkerUrl on android > amap without title and description 1`] = `"androidamap://viewMap?sourceApplication=map_launcher&poiname=&lat=52.516323&lon=13.377348&zoom=16&dev=0"`;
 
-exports[`generateMarkerUrl on android > apple with title and description 1`] = `"http://maps.apple.com/maps?saddr=52.516323,13.377348"`;
+exports[`generateMarkerUrl on android > apple with title and description 1`] = `"https://maps.apple.com/?ll=52.516323,13.377348&q=B%C3%A4r%20%26%20Tor&z=15"`;
 
-exports[`generateMarkerUrl on android > apple without title and description 1`] = `"http://maps.apple.com/maps?saddr=52.516323,13.377348"`;
+exports[`generateMarkerUrl on android > apple without title and description 1`] = `"https://maps.apple.com/?ll=52.516323,13.377348&q=52.516323,13.377348&z=16"`;
 
 exports[`generateMarkerUrl on android > baidu with title and description 1`] = `"baidumap://map/marker?location=52.516323,13.377348&title=B%C3%A4r%20%26%20Tor&content=Some%20description&traffic=on&src=com.map_launcher&coord_type=gcj02&zoom=15"`;
 
@@ -32,13 +32,13 @@ exports[`generateMarkerUrl on android > google with title and description 1`] = 
 
 exports[`generateMarkerUrl on android > google without title and description 1`] = `"geo:0,0?q=52.516323,13.377348&zoom=16"`;
 
-exports[`generateMarkerUrl on android > googleGo with title and description 1`] = `"http://maps.google.com/maps?q=52.516323,13.377348(B%C3%A4r%20%26%20Tor)&zoom=15"`;
+exports[`generateMarkerUrl on android > googleGo with title and description 1`] = `"https://maps.google.com/maps?q=52.516323,13.377348(B%C3%A4r%20%26%20Tor)&zoom=15"`;
 
-exports[`generateMarkerUrl on android > googleGo without title and description 1`] = `"http://maps.google.com/maps?q=52.516323,13.377348&zoom=16"`;
+exports[`generateMarkerUrl on android > googleGo without title and description 1`] = `"https://maps.google.com/maps?q=52.516323,13.377348&zoom=16"`;
 
 exports[`generateMarkerUrl on android > here with title and description 1`] = `"https://share.here.com/l/52.516323,13.377348,B%C3%A4r%20%26%20Tor?z=15"`;
 
-exports[`generateMarkerUrl on android > here without title and description 1`] = `"https://share.here.com/l/52.516323,13.377348,undefined?z=16"`;
+exports[`generateMarkerUrl on android > here without title and description 1`] = `"https://share.here.com/l/52.516323,13.377348?z=16"`;
 
 exports[`generateMarkerUrl on android > kakao with title and description 1`] = `"kakaomap://look?p=52.516323,13.377348"`;
 
@@ -48,21 +48,21 @@ exports[`generateMarkerUrl on android > mapswithme with title and description 1`
 
 exports[`generateMarkerUrl on android > mapswithme without title and description 1`] = `"mapsme://map?v=1&ll=52.516323,13.377348"`;
 
-exports[`generateMarkerUrl on android > mapyCz with title and description 1`] = `"https://mapy.cz/zakladni?id=\${coords[ 0 ]},\${coords[ 1 ]}&z=15&source=coor"`;
+exports[`generateMarkerUrl on android > mapyCz with title and description 1`] = `"https://mapy.cz/zakladni?id=13.377348,52.516323&z=15&source=coor"`;
 
-exports[`generateMarkerUrl on android > mapyCz without title and description 1`] = `"https://mapy.cz/zakladni?id=\${coords[ 0 ]},\${coords[ 1 ]}&z=16&source=coor"`;
+exports[`generateMarkerUrl on android > mapyCz without title and description 1`] = `"https://mapy.cz/zakladni?id=13.377348,52.516323&z=16&source=coor"`;
 
 exports[`generateMarkerUrl on android > naver with title and description 1`] = `"nmap://place?lat=52.516323&lng=13.377348&zoom=15&name=B%C3%A4r%20%26%20Tor"`;
 
 exports[`generateMarkerUrl on android > naver without title and description 1`] = `"nmap://place?lat=52.516323&lng=13.377348&zoom=16"`;
 
-exports[`generateMarkerUrl on android > osmand with title and description 1`] = `"http://osmand.net/go?lat=52.516323&lon=13.377348&z=15"`;
+exports[`generateMarkerUrl on android > osmand with title and description 1`] = `"https://osmand.net/go?lat=52.516323&lon=13.377348&z=15"`;
 
-exports[`generateMarkerUrl on android > osmand without title and description 1`] = `"http://osmand.net/go?lat=52.516323&lon=13.377348&z=16"`;
+exports[`generateMarkerUrl on android > osmand without title and description 1`] = `"https://osmand.net/go?lat=52.516323&lon=13.377348&z=16"`;
 
-exports[`generateMarkerUrl on android > osmandplus with title and description 1`] = `"http://osmand.net/go?lat=52.516323&lon=13.377348&z=15"`;
+exports[`generateMarkerUrl on android > osmandplus with title and description 1`] = `"https://osmand.net/go?lat=52.516323&lon=13.377348&z=15"`;
 
-exports[`generateMarkerUrl on android > osmandplus without title and description 1`] = `"http://osmand.net/go?lat=52.516323&lon=13.377348&z=16"`;
+exports[`generateMarkerUrl on android > osmandplus without title and description 1`] = `"https://osmand.net/go?lat=52.516323&lon=13.377348&z=16"`;
 
 exports[`generateMarkerUrl on android > petal with title and description 1`] = `"petalmaps://poidetail?marker=52.516323,13.377348&z=15"`;
 
@@ -108,9 +108,9 @@ exports[`generateMarkerUrl on ios > amap with title and description 1`] = `"iosa
 
 exports[`generateMarkerUrl on ios > amap without title and description 1`] = `"iosamap://viewMap?sourceApplication=map_launcher&poiname=&lat=52.516323&lon=13.377348&zoom=16&dev=0"`;
 
-exports[`generateMarkerUrl on ios > apple with title and description 1`] = `"http://maps.apple.com/maps?saddr=52.516323,13.377348"`;
+exports[`generateMarkerUrl on ios > apple with title and description 1`] = `"https://maps.apple.com/?ll=52.516323,13.377348&q=B%C3%A4r%20%26%20Tor&z=15"`;
 
-exports[`generateMarkerUrl on ios > apple without title and description 1`] = `"http://maps.apple.com/maps?saddr=52.516323,13.377348"`;
+exports[`generateMarkerUrl on ios > apple without title and description 1`] = `"https://maps.apple.com/?ll=52.516323,13.377348&q=52.516323,13.377348&z=16"`;
 
 exports[`generateMarkerUrl on ios > baidu with title and description 1`] = `"baidumap://map/marker?location=52.516323,13.377348&title=B%C3%A4r%20%26%20Tor&content=Some%20description&traffic=on&src=com.map_launcher&coord_type=gcj02&zoom=15"`;
 
@@ -136,13 +136,13 @@ exports[`generateMarkerUrl on ios > google with title and description 1`] = `"co
 
 exports[`generateMarkerUrl on ios > google without title and description 1`] = `"comgooglemaps://?q=52.516323,13.377348&zoom=16"`;
 
-exports[`generateMarkerUrl on ios > googleGo with title and description 1`] = `"http://maps.google.com/maps?q=52.516323,13.377348(B%C3%A4r%20%26%20Tor)&zoom=15"`;
+exports[`generateMarkerUrl on ios > googleGo with title and description 1`] = `"https://maps.google.com/maps?q=52.516323,13.377348(B%C3%A4r%20%26%20Tor)&zoom=15"`;
 
-exports[`generateMarkerUrl on ios > googleGo without title and description 1`] = `"http://maps.google.com/maps?q=52.516323,13.377348&zoom=16"`;
+exports[`generateMarkerUrl on ios > googleGo without title and description 1`] = `"https://maps.google.com/maps?q=52.516323,13.377348&zoom=16"`;
 
 exports[`generateMarkerUrl on ios > here with title and description 1`] = `"https://share.here.com/l/52.516323,13.377348,B%C3%A4r%20%26%20Tor?z=15"`;
 
-exports[`generateMarkerUrl on ios > here without title and description 1`] = `"https://share.here.com/l/52.516323,13.377348,undefined?z=16"`;
+exports[`generateMarkerUrl on ios > here without title and description 1`] = `"https://share.here.com/l/52.516323,13.377348?z=16"`;
 
 exports[`generateMarkerUrl on ios > kakao with title and description 1`] = `"kakaomap://look?p=52.516323,13.377348"`;
 
@@ -152,9 +152,9 @@ exports[`generateMarkerUrl on ios > mapswithme with title and description 1`] = 
 
 exports[`generateMarkerUrl on ios > mapswithme without title and description 1`] = `"mapsme://map?v=1&ll=52.516323,13.377348"`;
 
-exports[`generateMarkerUrl on ios > mapyCz with title and description 1`] = `"https://mapy.cz/zakladni?id=\${coords[ 0 ]},\${coords[ 1 ]}&z=15&source=coor"`;
+exports[`generateMarkerUrl on ios > mapyCz with title and description 1`] = `"https://mapy.cz/zakladni?id=13.377348,52.516323&z=15&source=coor"`;
 
-exports[`generateMarkerUrl on ios > mapyCz without title and description 1`] = `"https://mapy.cz/zakladni?id=\${coords[ 0 ]},\${coords[ 1 ]}&z=16&source=coor"`;
+exports[`generateMarkerUrl on ios > mapyCz without title and description 1`] = `"https://mapy.cz/zakladni?id=13.377348,52.516323&z=16&source=coor"`;
 
 exports[`generateMarkerUrl on ios > naver with title and description 1`] = `"nmap://place?lat=52.516323&lng=13.377348&zoom=15&name=B%C3%A4r%20%26%20Tor"`;
 
