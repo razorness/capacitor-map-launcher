@@ -2,14 +2,28 @@ import XCTest
 @testable import MapLauncherPlugin
 
 class MapLauncherTests: XCTestCase {
-    func testEcho() {
-        // This is an example of a functional test case for a plugin.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    let implementation = MapLauncher()
 
-        let implementation = MapLauncher()
-        let value = "Hello, World!"
-        let result = implementation.echo(value)
+    func testEveryMapTypeHasExactlyOneModel() {
+        for mapType in MapType.allCases {
+            XCTAssertEqual(implementation.maps.filter { $0.mapType == mapType }.count, 1, "\(mapType)")
+        }
+    }
 
-        XCTAssertEqual(value, result)
+    func testGetMapByRawValue() {
+        XCTAssertNil(implementation.getMap(type: "googleGo"), "Android only")
+        XCTAssertNil(implementation.getMap(type: "unknown"))
+        XCTAssertEqual(implementation.getMap(type: "mapyCz")?.mapType, .mapyCz)
+        XCTAssertEqual(implementation.getMap(type: "yandexNavi")?.mapName, "Yandex Navigator")
+    }
+
+    func testToMapOmitsMissingUrlPrefix() {
+        XCTAssertEqual(implementation.getMap(type: "apple")?.toMap(), ["mapName": "Apple Maps", "mapType": "apple"])
+        XCTAssertEqual(implementation.getMap(type: "waze")?.toMap(), ["mapName": "Waze", "mapType": "waze", "urlPrefix": "waze://"])
+    }
+
+    func testParseUrlFallsBackToPercentEncoding() {
+        XCTAssertEqual(implementation.parseUrl("waze://?ll=52.5,13.3&z=16")?.absoluteString, "waze://?ll=52.5,13.3&z=16")
+        XCTAssertNotNil(implementation.parseUrl("com.sygic.aura://coordinate|13.3|52.5|show"))
     }
 }

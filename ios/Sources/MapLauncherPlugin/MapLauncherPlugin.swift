@@ -12,38 +12,52 @@ public class CapacitorMapLauncher: CAPPlugin, CAPBridgedPlugin {
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "getInstalledMaps", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "showMarker", returnType: CAPPluginReturnPromise),
-        CAPPluginMethod(name: "isMapAvailable", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "isMapAvailable", returnType: CAPPluginReturnPromise)
     ]
     private let implementation = MapLauncher()
 
-	@objc func getInstalledMaps(_ call: CAPPluginCall) {
-		call.resolve([
-			"value": implementation.getMapsAvailable()
-		])
-	}
+    // Capacitor calls plugin methods on a background queue; UIApplication must be used on the main thread.
 
-	@objc func showMarker(_ call: CAPPluginCall) {
-		let mapType = call.getString("mapType") ?? ""
-		let url = call.getString("url") ?? ""
-		let title = call.getString("title") ?? ""
-		let latitude = call.getDouble("lat") ?? 0
-		let longitude = call.getDouble("lon") ?? 0
+    @objc func getInstalledMaps(_ call: CAPPluginCall) {
+        DispatchQueue.main.async {
+            call.resolve([
+                "value": self.implementation.getInstalledMaps().map { $0.toMap() }
+            ])
+        }
+    }
 
-		let map = implementation.getMapByRawMapType(type: mapType)
-		if (!implementation.isMapAvailable(map: map)) {
-			call.reject("Map is not installed on a device", "MAP_NOT_AVAILABLE")
-			return;
-		}
+    @objc func isMapAvailable(_ call: CAPPluginCall) {
+        guard let map = implementation.getMap(type: call.getString("mapType") ?? "") else {
+            call.resolve(["value": false])
+            return
+        }
+        DispatchQueue.main.async {
+            call.resolve(["value": self.implementation.isMapAvailable(map)])
+        }
+    }
 
-		implementation.showMarker(mapType: MapType(rawValue: mapType)!, url: url, title: title, latitude: latitude, longitude: longitude)
-	}
-
-	@objc func isMapAvailable(_ call: CAPPluginCall) {
-		let mapType = call.getString("mapType") ?? ""
-		let map = implementation.getMapByRawMapType(type: mapType)
-		call.resolve([
-			"value": implementation.isMapAvailable(map: map)
-		])
-	}
+    @objc func showMarker(_ call: CAPPluginCall) {
+        guard let map = implementation.getMap(type: call.getString("mapType") ?? "") else {
+            call.reject("Map is not supported on iOS", "MAP_NOT_AVAILABLE")
+            return
+        }
+        guard let url = implementation.parseUrl(call.getString("url") ?? "") else {
+            call.reject("Invalid or missing url", "INVALID_URL")
+            return
+        }
+        DispatchQueue.main.async {
+            guard self.implementation.isMapAvailable(map) else {
+                call.reject("Map is not installed on the device", "MAP_NOT_AVAILABLE")
+                return
+            }
+            self.implementation.open(url: url) { success in
+                if success {
+                    call.resolve()
+                } else {
+                    call.reject("Map app could not be opened", "OPEN_FAILED")
+                }
+            }
+        }
+    }
 
 }
