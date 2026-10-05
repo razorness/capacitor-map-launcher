@@ -2,10 +2,16 @@
   "name": "capacitor-map-launcher",
   "version": "0.0.1",
   "description": "Opens coordinates in native map apps",
-  "main": "dist/plugin.cjs.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
-  "unpkg": "dist/plugin.js",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "android/src/main/",
     "android/build.gradle",
@@ -40,9 +46,9 @@
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api MapLauncherPlugin --output-readme README.md --output-json dist/docs.json",
-    "build": "pnpm run clean && pnpm run docgen && tsc && rollup -c rollup.config.mjs",
+    "build": "pnpm run clean && pnpm run docgen && tsc --noEmit && tsdown",
     "clean": "rimraf ./dist",
-    "watch": "tsc --watch",
+    "watch": "tsdown --watch",
     "prepublishOnly": "pnpm run build",
     "up:deps": "pnpm dlx taze major -I"
   },
@@ -58,8 +64,8 @@
     "prettier": "^3.9.9",
     "prettier-plugin-java": "^2.11.0",
     "rimraf": "^6.1.3",
-    "rollup": "^4.64.0",
     "swiftlint": "^2.0.0",
+    "tsdown": "^0.23.0",
     "typescript": "~6.0.3"
   },
   "peerDependencies": {

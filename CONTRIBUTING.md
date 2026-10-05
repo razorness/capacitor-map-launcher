@@ -25,9 +25,7 @@ This guide provides instructions for contributing to this Capacitor plugin.
 
 Build the plugin web assets and generate plugin API documentation using [`@capacitor/docgen`](https://github.com/ionic-team/capacitor-docgen).
 
-It will compile the TypeScript code from `src/` into ESM JavaScript in `dist/esm/`. These files are used in apps with bundlers when your plugin is imported.
-
-Then, Rollup will bundle the code into a single file at `dist/plugin.js`. This file is used in apps without bundlers by including it as a script in `index.html`.
+It type-checks `src/` with `tsc` and bundles it with [tsdown](https://tsdown.dev) into `dist/index.js` plus type declarations in `dist/index.d.ts`. The package is published as ESM only — there is no CommonJS or `<script>`-tag build.
 
 #### `pnpm run verify`
 

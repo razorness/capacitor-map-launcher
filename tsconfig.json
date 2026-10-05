@@ -3,7 +3,6 @@
 		"allowUnreachableCode": false,
 		"declaration": true,
 		"esModuleInterop": true,
-		"inlineSources": true,
 		"skipLibCheck": true,
 		"lib": [
 			"dom",
@@ -11,13 +10,12 @@
 		],
 		"module": "esnext",
 		"moduleResolution": "bundler",
+		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"outDir": "dist/esm",
 		"rootDir": "src",
 		"pretty": true,
-		"sourceMap": true,
 		"strict": true,
 		"target": "es2017"
 	},
