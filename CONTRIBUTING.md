@@ -13,6 +13,7 @@ This guide provides instructions for contributing to this Capacitor plugin.
     pnpm install
     ```
 
+1. For Android, install a JDK 21 (e.g. Temurin). The Gradle daemon JVM is pinned in `android/gradle/gradle-daemon-jvm.properties`, so Gradle picks a locally installed JDK 21 regardless of `JAVA_HOME`; it does not download one.
 1. Install SwiftLint if you're on macOS.
 
     ```shell

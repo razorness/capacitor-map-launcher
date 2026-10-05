@@ -24,6 +24,7 @@ pnpm run verify:ios     # xcodebuild (macOS only)
 ```
 
 - Pass extra args to scripts without `--` (`pnpm run eslint --fix`); pnpm forwards a literal `--` to the tool.
+- `android/gradle/gradle-daemon-jvm.properties` pins the Gradle daemon to JDK 21 (auto-detected locally, no auto-provisioning/foojay on purpose; CI provides it via `setup-java`). Keep AGP/Gradle at the versions `@capacitor/android` itself uses.
 - No Prettier on purpose: `src/*.ts` use a deliberate hand-aligned tab style. Don't add a formatter or mass-reformat.
 - Tests:
   - `test/urlGenerator.test.ts` snapshots every map type's URL on Android and iOS — review snapshot diffs deliberately, they *are* the URL contract.
