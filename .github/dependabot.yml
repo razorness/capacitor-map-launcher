@@ -1,0 +1,7 @@
+version: 2
+updates:
+  # npm dependencies are updated manually via `pnpm run up:deps`
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
