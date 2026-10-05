@@ -27,6 +27,10 @@ Build the plugin web assets and generate plugin API documentation using [`@capac
 
 It type-checks `src/` with `tsc` and bundles it with [tsdown](https://tsdown.dev) into `dist/index.js` plus type declarations in `dist/index.d.ts`. The package is published as ESM only — there is no CommonJS or `<script>`-tag build.
 
+#### `pnpm test`
+
+Run the unit tests with [Vitest](https://vitest.dev). They snapshot the deep link generated for every map type and check that the map lists in TypeScript, Swift, Kotlin, the Android manifest and the README stay in sync. Update snapshots with `pnpm exec vitest run -u` and review the diff.
+
 #### `pnpm run verify`
 
 Build and validate the web and native projects.
