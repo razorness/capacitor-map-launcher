@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "build-actions-generator": {
+      "source": "ionic-team/capacitor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/build-actions-generator/SKILL.md",
+      "computedHash": "1281d7bd0a2bb075fca6ed6b3ecc644ae1ad395bedc832119e146c564b629ec1"
+    },
+    "capacitor-plugin-generator": {
+      "source": "ionic-team/capacitor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/capacitor-plugin-generator/SKILL.md",
+      "computedHash": "24589f2ca52d65c84a67e1b7666ef881934eb9520c0bb5ef321fe777baff5035"
+    },
+    "capacitor-plugin-upgrades": {
+      "source": "capawesome-team/skills",
+      "sourceType": "github",
+      "skillPath": "skills/capacitor-plugin-upgrades/SKILL.md",
+      "computedHash": "9a9281e4fd3a70028824fb612caa8067e3c394ace9af18bc58346c89fa3cdccb"
+    },
+    "capacitor-uiscene-migrator": {
+      "source": "ionic-team/capacitor-skills",
+      "sourceType": "github",
+      "skillPath": "skills/capacitor-uiscene-migrator/SKILL.md",
+      "computedHash": "229b5b23456546c5e0cb1683d844f1f1d4fbc39ef5e40368d7ca44f941b660ec"
+    }
+  }
+}
