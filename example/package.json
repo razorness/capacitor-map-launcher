@@ -17,14 +17,14 @@
     "@capacitor/core": "^8.5.2",
     "@capacitor/ios": "^8.5.2",
     "capacitor-map-launcher": "workspace:*",
-    "vue": "^3.5.22"
+    "vue": "^3.5.43"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.2",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.9",
-    "vue-tsc": "^3.1.1"
+    "@vitejs/plugin-vue": "^6.0.9",
+    "typescript": "6.0.3",
+    "vite": "^8.3.2",
+    "vue-tsc": "^3.3.12"
   },
   "author": "",
   "license": "ISC",
