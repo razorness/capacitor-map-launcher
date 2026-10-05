@@ -2,6 +2,5 @@ packages:
   - example
 allowBuilds:
   esbuild: true
-  swiftlint: false
   unrs-resolver: true
 nodeLinker: hoisted
