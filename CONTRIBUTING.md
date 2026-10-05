@@ -41,10 +41,16 @@ This template is integrated with ESLint, Prettier, and SwiftLint. Using these to
 
 ## Publishing
 
-There is a `prepublishOnly` hook in `package.json` which prepares the plugin before publishing, so all you need to do is run:
+Releases are published to npm by GitHub Actions (`.github/workflows/release.yml`) using npm trusted publishing — no npm token is stored in the repository.
 
-```shell
-npm publish
-```
+1. Bump `version` in `package.json` and commit.
+1. Push a matching tag, e.g. `v1.2.3` (or create a GitHub release with that tag):
+
+    ```shell
+    git tag v1.2.3
+    git push origin v1.2.3
+    ```
+
+The workflow verifies the Android build, checks that the tag matches the `package.json` version, builds and publishes. Tags with a prerelease suffix (e.g. `v1.3.0-beta.1`) are published under the `next` dist-tag.
 
 > **Note**: The [`files`](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#files) array in `package.json` specifies which files get published. If you rename files/directories or add files elsewhere, you may need to update it.

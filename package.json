@@ -84,5 +84,9 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@12.9.1"
+  "packageManager": "pnpm@12.9.1",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
 }
