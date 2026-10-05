@@ -55,6 +55,6 @@ Releases are published to npm by GitHub Actions (`.github/workflows/release.yml`
     git push origin v1.2.3
     ```
 
-The workflow verifies the Android build, checks that the tag matches the `package.json` version, builds and publishes. Tags with a prerelease suffix (e.g. `v1.3.0-beta.1`) are published under the `next` dist-tag.
+The workflow runs the full CI (workflow security check, web, Android, iOS), checks that the tag matches the `package.json` version, builds and packs the tarball in an unprivileged job and publishes it from a separate job in the `npm` environment, which is the only one allowed to request an npm publish token. Tags with a prerelease suffix (e.g. `v1.3.0-beta.1`) are published under the `next` dist-tag.
 
 > **Note**: The [`files`](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#files) array in `package.json` specifies which files get published. If you rename files/directories or add files elsewhere, you may need to update it.

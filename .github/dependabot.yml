@@ -5,3 +5,6 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # don't adopt releases younger than a week (time to detect compromised versions)
+    cooldown:
+      default-days: 7

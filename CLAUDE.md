@@ -17,7 +17,7 @@ pnpm run watch          # tsdown --watch
 pnpm test               # vitest run; update snapshots with `pnpm exec vitest run -u`
 pnpm exec vitest run test/nativeParity.test.ts   # single test file
 pnpm run eslint         # ESLint only (what CI runs on Linux)
-pnpm run lint           # eslint + swiftlint (swiftlint is macOS only)
+pnpm run lint           # eslint + swiftlint (needs a `swiftlint` binary on PATH; config in .swiftlint.yml)
 pnpm run fmt            # autofix all of the above
 pnpm run verify:android # cd android && ./gradlew clean build test  (Java 21, runs Kotlin unit tests)
 pnpm run verify:ios     # xcodebuild (macOS only)
@@ -36,7 +36,15 @@ pnpm run verify:ios     # xcodebuild (macOS only)
 
 ## Releasing
 
-`.github/workflows/release.yml` publishes to npm on a pushed `v*.*.*` tag via npm trusted publishing (OIDC, no token; provenance via `publishConfig`). The tag must equal `v` + `package.json` `version` or the job fails; prerelease tags (`v1.0.0-beta.1`) go to the `next` dist-tag. It first runs the full CI workflow (`ci.yml`: web, Android, iOS) via `workflow_call`. CI also fails if the committed `dist/` or README differ from a fresh build.
+`.github/workflows/release.yml` publishes to npm on a pushed `v*.*.*` tag via npm trusted publishing (OIDC, no token; provenance via `publishConfig`). The tag must equal `v` + `package.json` `version` or the job fails; prerelease tags (`v1.0.0-beta.1`) go to the `next` dist-tag. It first runs the full CI workflow (`ci.yml`: zizmor, web, Android, iOS) via `workflow_call`. CI also fails if the committed `dist/` or README differ from a fresh build.
+
+### Workflow security (keep these invariants)
+
+- `ci.yml` runs untrusted PR code: trigger with `pull_request`, never `pull_request_target`; read-only `contents: read`; never reference secrets there.
+- Pin every action to a full commit SHA with a `# vX.Y.Z` comment (Dependabot bumps them, with a 7-day cooldown). Check out with `persist-credentials: false`.
+- Never interpolate `${{ github.event.* }}` or other attacker-controlled values into `run:` scripts; pass them via `env:` and quote them.
+- Release: `pack` installs/builds without any privileges and without caches; `publish` is the only job with `id-token: write`, runs in the `npm` environment and only publishes the downloaded tarball — don't add checkout, installs or scripts to it.
+- `zizmor` (pinned version) runs in CI and fails on findings; run it locally (`zizmor --persona pedantic .github`) before changing workflows.
 
 ## Architecture
 
@@ -62,4 +70,4 @@ Platform-only maps (marked "Only available on …" in `definitions.ts`) are simp
 
 ## Style
 
-ESLint/SwiftLint configs come from `@ionic/*` presets (`eslint.config.mjs`, `package.json`). Existing TS/Swift files use tabs and aligned colons in object literals and `switch` blocks — match the surrounding file.
+ESLint uses the `@ionic/eslint-config` preset (`eslint.config.mjs`); `.swiftlint.yml` mirrors `@ionic/swiftlint-config` but only includes this repo's Swift paths (the npm wrapper used to lint `node_modules`). Existing TS/Swift files use tabs and aligned colons in object literals and `switch` blocks — match the surrounding file.
