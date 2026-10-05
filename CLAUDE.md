@@ -15,14 +15,14 @@ pnpm install
 pnpm run build          # clean → docgen (rewrites README API section + dist/docs.json) → tsc --noEmit → tsdown
 pnpm run watch          # tsdown --watch
 pnpm run eslint         # ESLint only (what CI runs)
-pnpm run lint           # eslint + prettier --check + swiftlint
+pnpm run lint           # eslint + swiftlint (swiftlint is macOS only)
 pnpm run fmt            # autofix all of the above
 pnpm run verify:android # cd android && ./gradlew clean build test  (Java 21)
 pnpm run verify:ios     # xcodebuild (macOS only)
 ```
 
-- Pass extra args to scripts without `--` (`pnpm run prettier --check`); pnpm forwards a literal `--` to the tool.
-- `pnpm run prettier --check` currently fails on all `src/*.ts` files: they use a deliberate hand-aligned tab style. Don't mass-reformat them unasked.
+- Pass extra args to scripts without `--` (`pnpm run eslint --fix`); pnpm forwards a literal `--` to the tool.
+- No Prettier on purpose: `src/*.ts` use a deliberate hand-aligned tab style. Don't add a formatter or mass-reformat.
 - There are no real tests — `android/src/test`, `android/src/androidTest` and `ios/Tests` contain only template stubs. Validate changes via the example app.
 - `dist/` is committed; rebuild it (`pnpm run build`) when changing `src/`.
 - **ESM only** (`"type": "module"`, single bundle `dist/index.js` + `dist/index.d.ts` via `tsdown.config.ts`) — CommonJS/IIFE builds were dropped on purpose; don't reintroduce them. tsdown does not type-check, hence the separate `tsc --noEmit` (tsconfig has `noEmit: true`). Keep `"./package.json"` in `exports`: the Capacitor CLI resolves plugins through it.
@@ -63,4 +63,4 @@ Platform-only maps (marked "Only available on …" in `definitions.ts`) are simp
 
 ## Style
 
-Prettier/ESLint/SwiftLint configs come from `@ionic/*` presets (see `package.json`). Existing TS/Swift files use tabs and aligned colons in object literals and `switch` blocks — match the surrounding file.
+ESLint/SwiftLint configs come from `@ionic/*` presets (`eslint.config.mjs`, `package.json`). Existing TS/Swift files use tabs and aligned colons in object literals and `switch` blocks — match the surrounding file.
