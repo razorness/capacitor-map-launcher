@@ -56,3 +56,12 @@ describe('README', () => {
 		expect(matchAll(plist, /<string>([^<]+)<\/string>/g)).toEqual(matchAll(swiftMaps, /urlPrefix: "([^"]+):\/\/"/g));
 	});
 });
+
+describe('example app', () => {
+	it('declares every iOS URL scheme in Info.plist', () => {
+		const plist = read('example/ios/App/App/Info.plist');
+		const schemes = plist.slice(plist.indexOf('<key>LSApplicationQueriesSchemes</key>'));
+		expect(matchAll(schemes.slice(0, schemes.indexOf('</array>')), /<string>([^<]+)<\/string>/g))
+			.toEqual(matchAll(swiftMaps, /urlPrefix: "([^"]+):\/\/"/g));
+	});
+});
