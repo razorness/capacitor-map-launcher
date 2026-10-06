@@ -54,7 +54,7 @@ pnpm run verify:ios     # xcodebuild (macOS only)
 - **Coordinates are `[lon, lat]`** (GeoJSON order): `coords[0]` = longitude, `coords[1]` = latitude.
 - Native `showMarker` just checks the app is installed and opens the URL:
   - Android (`MapLauncherPlugin.kt`): `Intent.ACTION_VIEW` restricted via `setPackage()` to the map's package name.
-  - iOS (`MapLauncher.swift`): `UIApplication.shared.open(url)` for every app, including Apple Maps (`https://maps.apple.com/` links, no MapKit). Capacitor calls plugin methods off the main thread, so `MapLauncherPlugin.swift` dispatches all UIKit work to `DispatchQueue.main`.
+  - iOS (`MapLauncher.swift`): `UIApplication.shared.open(url)` for every app, including Apple Maps (`https://maps.apple.com/` links, no MapKit). Capacitor calls plugin methods off the main thread, so `MapLauncher` is `@MainActor` and `MapLauncherPlugin.swift` hops to it with `Task { @MainActor in … }` (Swift 6 language mode; keep it free of concurrency warnings).
 - Failures reject with `MAP_NOT_AVAILABLE`, `INVALID_URL` or `OPEN_FAILED` on both platforms (documented in the README).
 - Installed-app detection: Android uses `getLaunchIntentForPackage(packageName)`; iOS uses `canOpenURL(urlPrefix)` (Apple Maps is always available). Consuming apps must declare the schemes in their iOS `LSApplicationQueriesSchemes`.
 

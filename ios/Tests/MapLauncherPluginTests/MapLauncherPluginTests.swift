@@ -1,6 +1,7 @@
 import XCTest
 @testable import MapLauncherPlugin
 
+@MainActor
 class MapLauncherTests: XCTestCase {
     let implementation = MapLauncher()
 

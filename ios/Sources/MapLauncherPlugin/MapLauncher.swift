@@ -1,9 +1,10 @@
 import UIKit
 
-/// UIKit-backed methods (`isMapAvailable`, `getInstalledMaps`, `open`) must be called on the main thread.
-public class MapLauncher {
+/// UIKit-backed methods (`isMapAvailable`, `getInstalledMaps`, `open`) are isolated to the main actor.
+@MainActor
+public final class MapLauncher {
 
-    let maps: [MapModel] = [
+    nonisolated let maps: [MapModel] = [
         MapModel(mapName: "Apple Maps", mapType: .apple, urlPrefix: nil),
         MapModel(mapName: "Google Maps", mapType: .google, urlPrefix: "comgooglemaps://"),
         MapModel(mapName: "Amap", mapType: .amap, urlPrefix: "iosamap://"),
@@ -27,8 +28,11 @@ public class MapLauncher {
         MapModel(mapName: "Mapy CZ", mapType: .mapyCz, urlPrefix: "szn-mapy://")
     ]
 
+    /// Nonisolated so the plugin can create it off the main actor; there is no mutable state.
+    nonisolated init() {}
+
     /// Returns `nil` for unknown map types and for map types that are not supported on iOS.
-    func getMap(type: String) -> MapModel? {
+    nonisolated func getMap(type: String) -> MapModel? {
         guard let mapType = MapType(rawValue: type) else {
             return nil
         }
@@ -51,15 +55,15 @@ public class MapLauncher {
 
     /// Parses a URL built by the TypeScript layer. Before iOS 17, `URL(string:)` rejects characters
     /// like `|` (used by Sygic), so those are percent-encoded as a fallback.
-    func parseUrl(_ string: String) -> URL? {
+    nonisolated func parseUrl(_ string: String) -> URL? {
         if let url = URL(string: string) {
             return url
         }
         return string.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed).flatMap { URL(string: $0) }
     }
 
-    func open(url: URL, completion: @escaping (Bool) -> Void) {
-        UIApplication.shared.open(url, options: [:], completionHandler: completion)
+    func open(url: URL) async -> Bool {
+        return await UIApplication.shared.open(url)
     }
 
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Raw values must match the `MapType` enum in `src/definitions.ts`.
-public enum MapType: String, CaseIterable {
+public enum MapType: String, CaseIterable, Sendable {
     case apple
     case google
     case amap
@@ -25,7 +25,7 @@ public enum MapType: String, CaseIterable {
     case mapyCz
 }
 
-public struct MapModel {
+public struct MapModel: Sendable {
     let mapName: String
     let mapType: MapType
     /// URL scheme used to detect the app; `nil` for apps that are always installed.

@@ -1,5 +1,5 @@
 import Foundation
-import Capacitor
+@preconcurrency import Capacitor
 
 /**
  * Please read the Capacitor iOS Plugin Development Guide
@@ -16,12 +16,14 @@ public class CapacitorMapLauncher: CAPPlugin, CAPBridgedPlugin {
     ]
     private let implementation = MapLauncher()
 
-    // Capacitor calls plugin methods on a background queue; UIApplication must be used on the main thread.
+    // Capacitor calls plugin methods on a background queue; UIApplication must be used on the main actor.
+    // The tasks capture `implementation` rather than `self`, since only the former is Sendable.
 
     @objc func getInstalledMaps(_ call: CAPPluginCall) {
-        DispatchQueue.main.async {
+        let implementation = self.implementation
+        Task { @MainActor in
             call.resolve([
-                "value": self.implementation.getInstalledMaps().map { $0.toMap() }
+                "value": implementation.getInstalledMaps().map { $0.toMap() }
             ])
         }
     }
@@ -31,8 +33,9 @@ public class CapacitorMapLauncher: CAPPlugin, CAPBridgedPlugin {
             call.resolve(["value": false])
             return
         }
-        DispatchQueue.main.async {
-            call.resolve(["value": self.implementation.isMapAvailable(map)])
+        let implementation = self.implementation
+        Task { @MainActor in
+            call.resolve(["value": implementation.isMapAvailable(map)])
         }
     }
 
@@ -45,17 +48,16 @@ public class CapacitorMapLauncher: CAPPlugin, CAPBridgedPlugin {
             call.reject("Invalid or missing url", "INVALID_URL")
             return
         }
-        DispatchQueue.main.async {
-            guard self.implementation.isMapAvailable(map) else {
+        let implementation = self.implementation
+        Task { @MainActor in
+            guard implementation.isMapAvailable(map) else {
                 call.reject("Map is not installed on the device", "MAP_NOT_AVAILABLE")
                 return
             }
-            self.implementation.open(url: url) { success in
-                if success {
-                    call.resolve()
-                } else {
-                    call.reject("Map app could not be opened", "OPEN_FAILED")
-                }
+            if await implementation.open(url: url) {
+                call.resolve()
+            } else {
+                call.reject("Map app could not be opened", "OPEN_FAILED")
             }
         }
     }

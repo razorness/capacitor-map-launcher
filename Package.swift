@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 import PackageDescription
 
 let package = Package(
@@ -17,6 +17,7 @@ let package = Package(
             name: "MapLauncherPlugin",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
+                // Unused by the plugin, but Capacitor's own headers import it.
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
             path: "ios/Sources/MapLauncherPlugin"),
