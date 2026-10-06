@@ -10,7 +10,8 @@
   "scripts": {
     "start": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync": "pnpm run build && cap sync"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.2",

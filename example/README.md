@@ -9,8 +9,7 @@ Run these from the repository root (Node 22+, pnpm):
 
 ```bash
 pnpm install
-pnpm run build                    # build the plugin
-pnpm --filter capacitor-app build # build the example web app
+pnpm run build # build the plugin
 ```
 
 ## Web
@@ -24,11 +23,15 @@ pnpm --filter capacitor-app start
 From `example/`:
 
 ```bash
-pnpm exec cap sync
+pnpm run sync               # build the web app and copy it into the native projects
 pnpm exec cap open ios      # or: android
 ```
 
-Run `cap sync` again after changing the plugin or the web app.
+Run `pnpm run sync` again after changing the web app or the plugin's TypeScript (rebuild the
+plugin first with `pnpm run build` in the repository root); `pnpm run sync ios` syncs only one
+platform. A plain `cap sync` copies whatever is in `dist/`, which may be outdated. Native plugin
+code is compiled from source, so Swift and Kotlin changes only need a rebuild in Xcode or
+Android Studio.
 
 ### iOS signing
 

@@ -33,7 +33,7 @@ pnpm run verify:ios     # xcodebuild (macOS only)
 - `dist/` is committed; rebuild it (`pnpm run build`) when changing `src/`.
 - **ESM only** (`"type": "module"`, single bundle `dist/index.js` + `dist/index.d.ts` via `tsdown.config.ts`) — CommonJS/IIFE builds were dropped on purpose; don't reintroduce them. tsdown does not type-check, hence the separate `tsc --noEmit` (tsconfig has `noEmit: true`). Keep `"./package.json"` in `exports`: the Capacitor CLI resolves plugins through it.
 - The README's `<docgen-index>` / `<docgen-api>` blocks are generated from JSDoc in `src/definitions.ts` — edit the source and rebuild, never hand-edit those blocks. `@capacitor/docgen` is pinned to exactly `0.3.0`: 0.3.1 emits `any` for all method return types.
-- Example app (`example/`, Vite + Vue 3, depends on the plugin via `workspace:*`): `pnpm --filter capacitor-app start` for the web shell; from `example/`, `pnpm exec cap sync` / `pnpm exec cap open android|ios` for native.
+- Example app (`example/`, Vite + Vue 3, depends on the plugin via `workspace:*`): `pnpm --filter capacitor-app start` for the web shell; from `example/`, `pnpm run sync` (builds the web app, then `cap sync`; plain `cap sync` copies a possibly stale `dist/`) / `pnpm exec cap open android|ios` for native.
 
 ## Releasing
 
